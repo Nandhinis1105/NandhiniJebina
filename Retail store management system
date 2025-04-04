@@ -1,0 +1,83 @@
+class Product:
+    def _init_(self, product_id, name, price, quantity):
+        self.product_id = product_id
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+
+class RetailStoreManagementSystem:
+    def _init_(self):
+        self.products = {}
+
+    def add_product(self, product_id, name, price, quantity):
+        self.products[product_id] = Product(product_id, name, price, quantity)
+        print(f"Product {name} added successfully!")
+
+    def remove_product(self, product_id):
+        if product_id in self.products:
+            del self.products[product_id]
+            print(f"Product {product_id} removed successfully!")
+        else:
+            print(f"Product {product_id} not found!")
+
+    def update_product_quantity(self, product_id, new_quantity):
+        if product_id in self.products:
+            self.products[product_id].quantity = new_quantity
+            print(f"Quantity of product {product_id} updated successfully!")
+        else:
+            print(f"Product {product_id} not found!")
+
+    def sell_product(self, product_id, quantity):
+        if product_id in self.products:
+            if self.products[product_id].quantity >= quantity:
+                self.products[product_id].quantity -= quantity
+                print(f"Product {product_id} sold successfully! Remaining quantity: {self.products[product_id].quantity}")
+            else:
+                print(f"Insufficient quantity of product {product_id}!")
+        else:
+            print(f"Product {product_id} not found!")
+
+    def display_products(self):
+        for product in self.products.values():
+            print(f"Product ID: {product.product_id}, Name: {product.name}, Price: {product.price}, Quantity: {product.quantity}")
+
+def main():
+    system = RetailStoreManagementSystem()
+
+    while True:
+        print("\nRetail Store Management System")
+        print("1. Add Product")
+        print("2. Remove Product")
+        print("3. Update Product Quantity")
+        print("4. Sell Product")
+        print("5. Display Products")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            product_id = input("Enter product ID: ")
+            name = input("Enter product name: ")
+            price = float(input("Enter product price: "))
+            quantity = int(input("Enter product quantity: "))
+            system.add_product(product_id, name, price, quantity)
+        elif choice == "2":
+            product_id = input("Enter product ID: ")
+            system.remove_product(product_id)
+        elif choice == "3":
+            product_id = input("Enter product ID: ")
+            new_quantity = int(input("Enter new quantity: "))
+            system.update_product_quantity(product_id, new_quantity)
+        elif choice == "4":
+            product_id = input("Enter product ID: ")
+            quantity = int(input("Enter quantity to sell: "))
+            system.sell_product(product_id, quantity)
+        elif choice == "5":
+            system.display_products()
+        elif choice == "6":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if _name_ == "_main_":
+    main()
