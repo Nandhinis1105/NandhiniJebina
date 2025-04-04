@@ -4,15 +4,12 @@ class Product:
         self.name = name
         self.price = price
         self.quantity = quantity
-
 class RetailStoreManagementSystem:
     def _init_(self):
         self.products = {}
-
     def add_product(self, product_id, name, price, quantity):
         self.products[product_id] = Product(product_id, name, price, quantity)
         print(f"Product {name} added successfully!")
-
     def remove_product(self, product_id):
         if product_id in self.products:
             del self.products[product_id]
